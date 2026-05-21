@@ -59,7 +59,7 @@
   ]
 ]
 #let GT(gt) = [
-  $&"GOTO" #gt$
+  $&"GOTO" #gt \ $
 ]
 
 
@@ -277,5 +277,77 @@ A function $g$ is total if it is defined for all input $r_1, r_2, dots, r_m$.
 #pagebreak()
 === Section 5. More about Macros
 
+Observe the following macro.
+$
+#init($W$, m: $f(V_1,dots, V_n)$)
+$
+where $f$ is a partially computable function. This macro is the abbreviation of the following expansion.
+$
+#init($Z_m$)
+#init($Z_(m+1)$, m: $V_1$)
+#init($Z_(m+2)$, m: $V_2$)
+dots.v\
+#init($Z_(m+n)$, m: $V_n$)
+#init($Z_(m+n+1)$)
+#init($Z_(m+n+2)$)
+dots.v\
+#init($Z_(m+n+k)$)
+&scr(Q)_m\
+#init($W$, m: $Z_n$, L:$E_m$)
+$
+where $m$ is large enough that these variables are never used in the main program.\
+This next macro makes IF statement look more familiar.
+$
+&"IF" P(V_1,dots, V_n) "GOTO" L
+$<new_if>
+where $P(V_1,dots, V_n)$ is a computable predicate that evaluates to either 
+$
+"TRUE" = 1, #h(.2in) "FALSE" = 0
+$
+which means @new_if is the expansion of 
+$
+#init($Z$,m:$P(V_1,dots, V_n)$)
+#ifs($Z$,$L$)
+$
+Note how all of these _macros_ are just abbreviations of the original language #L which means if anything is computable with these macros, or any new ones we define using #L, then it is computable in #L.
 
+#align(center)[*Exercises*]
++ Let $f(x)$, $g(x)$ be computable functions and let $h(x) = f(g(x))$. Show that $h$ is computable.\
+  *Proof*
+  Since $f$ and $g$ are computable there exists
+  $
+  f(x) &= psi_(#P _f)^((1))(x)\
+  &"and"\
+  g(x) &= psi_(#P _g)^((1))(x)\
+  $
+  for programs $#P _f$ and $#P _g$ respectively. Then $h$ can be computed using the following program
+  $
+  #init($X$,m:$x$)
+  #init($Z$,m:$psi_(#P _g)^((1))(X)$)
+  #init($Y$,m:$psi_(#P _f)^((1))(Z)$)
+  $
+  which is easily see to compute $h$.
++ Show by constructing a program that the predicate $x_1 lt.eq x_2$ is computable.\
+  Consider the following program
+  $
+  #init($Z_1$,m:$x_1$)
+  #init($Z_2$,m:$x_2$)
+  #ifs($Z_2$, $P$)
+  #ifs(L:$P$,$Z_1$, $S$)
+  #init(L:$T$,$Y$,m:$1$)
+  #GT($E$)
+  #init(L:$F$,$Y$,m:$0$)
+  #GT($E$)
+  #dec($Z_1$, L:$S$ )
+  #dec($Z_2$)
+  #ifs($Z_1$, $C$)
+  #GT($T$)
+  #ifs(L:$C$,$Z_2$, $S$)
+  #GT($F$)
+  $
+
+
+#pagebreak()
+== Chapter 3: Primitive Recursive Functions
+=== Section 1. Composition
 
