@@ -13,6 +13,7 @@
 // My macros
 #let P = $scr(P)$
 #let L = $scr(L)$
+#let C = $scr(C)$
 
 #let ifs(L: none,V,gt) = if L == none [
   $&"IF" #V eq.not  0 "GOTO" #gt\ $
@@ -350,4 +351,74 @@ Note how all of these _macros_ are just abbreviations of the original language #
 #pagebreak()
 == Chapter 3: Primitive Recursive Functions
 === Section 1. Composition
+
+*Definition.* Let $f$ be a function of $k$ variables and let $g_1,dots,g_k$ be functions of $n$ variables. Let
+$
+h(x_1,dots,x_n) = f(g_1(x_1,dots,x_n), dots, g_k(x_1,dots,x_n)).
+$
+Then $h$ is said to be obtained from $f$ and $g_1,dots,g_k$ by _composition_.\
+*Theorem 1.1.* If $h$ is obtained from the (partially) computable functions $f,g_1,dots,g_k$ by composition, then $h$ is (partially) computable.
+
+=== Section 2. Recursion
+*Definition* Let $k$ be a fixed number and
+$
+h(0) &= k\
+h(t + 1) &= g(t,h(t))
+$<recfn>
+where $g$ is some given _total_ function of two variables. Then $h$ is obtained from $g$ by _recursion_.\
+*Theorem 2.1.* Let $h$ be obtained from $g$ as in @recfn, and let $g$ be computable. Then $h$ is computable.\
+*Theorem 2.2.* Let $h$ be obtained from $f$ and $g$ in the following way,
+$
+h(x_1,dots,x_n, 0) &= f(x_1,dots,x_n)\
+h(x_1,dots,x_n, t+1) &= g(t,h(x_1,dots,x_n, t) ,x_1,dots,x_n)
+$
+and let $f$ and $g$ be computable. Then $h$ is also computable.
+=== Section 3. PRC Classes
+Consider the following functions
+$
+s(x) &= x + 1\
+n(x) &= 0
+$
+and the projection functions
+$
+u_i^n (x_1,dots,x_n) = x_i, #h(.5in) 1 lt.eq i lt.eq n.
+$
+The functions $s$, $n$, and $u_i^n$ are called _initial functions_.\
+*Definition.* A class of total functions #C is called a Primitive Recursively Closed (PRC) class if
++ the initial functions belong to #C,
++ a function obtained from functions belonging to #C by either composition or recursion also belongs to #C.
+*Theorem 3.1.* The class of computable functions is a PRC class.\
+*Proof.* Just show that the _initial functions_ are computable.\
+
+*Definition* A function is called _primitive recursive_ if it can be obtained from the initial function by a finite number of applications of composition and recursion.\
+*Theorem 3.3.* A function is primitive recursive if and only if it belong to every PRC class.\
+
+*Corollary 3.4* Every primitive recursive function is computable.\
+To note, primitive recursion functions are only a subset of all computable functions. Later in the book they are going to construct a function that is not primitive recursive but is computable.
+
+#align(center)[*Exercises*]
++ Let #C be a PRC class, and let $g_1, g_2, g_3, g_4$ belong to #C. Show that if 
+  $
+  h_1(x,y,z) &= g(z,y,x)\
+  h_2(x) &= g(x,x,x)\
+  h_3(w,x,y,z) &= h_1(g_3(x,x,x), z, g_4(2,g_4(y,z)))\
+  $
+  then $h_1,h_2,h_3$ also belong to #C.\
+  *Proof.*\
+  Since $h_1,h_2,h_3$ are all obtained from $g_1, g_2, g_3, g_4$ and $g_1, g_2, g_3, g_4$ belong to #C and #C is a PRC that means $h_1,h_2,h_3$ belong to #C by the definition.
++ Show that the class of all total functions is a PRC class.
+  *Proof.*\
+  *Property 1* Let $#C _t$ be the class of total functions. And since
+  $
+  s(x) &= x + 1\
+  n(x) &= 0\
+  u_i^n (x_1,dots,x_n) &= x_i,
+  $
+  the initial functions, are defined everywhere they are in $#C _t$.\
+  *Property 2* let $f$ and $g$ be total functions and let $h$ be some function obtained from either composition or recursion of $f$ and $g$. Then when ever $f$ and $g$ are defined so is $h$ and since $f$ and $g$ are total so is $h$, then $h$ belongs to $#C _t$. Thus, $#C _t$ is a PRC class.
+#pagebreak()
+  
+
+
+
 
