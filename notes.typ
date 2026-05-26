@@ -179,6 +179,8 @@ $s_i$ snapshots of #P, such that $s_(i + 1)$ is the successor of $s_i$ for $i  =
   $
 #pagebreak()
 === Section 4. Computable Functions
+#align(center)[*Notes*]
+
 The _Initial State_ of a program #P in the language #L for $r_1, r_2, dots, r_m$ given numbers is the state $sigma$ of #P where 
 $
 X_1 = r_1, X_2 = r_2, dots, X_m = r_m, Y = 0
@@ -277,6 +279,7 @@ A function $g$ is total if it is defined for all input $r_1, r_2, dots, r_m$.
 
 #pagebreak()
 === Section 5. More about Macros
+#align(center)[*Notes*]
 
 Observe the following macro.
 $
@@ -351,6 +354,7 @@ Note how all of these _macros_ are just abbreviations of the original language #
 #pagebreak()
 == Chapter 3: Primitive Recursive Functions
 === Section 1. Composition
+#align(center)[*Notes*]
 
 *Definition.* Let $f$ be a function of $k$ variables and let $g_1,dots,g_k$ be functions of $n$ variables. Let
 $
@@ -360,6 +364,8 @@ Then $h$ is said to be obtained from $f$ and $g_1,dots,g_k$ by _composition_.\
 *Theorem 1.1.* If $h$ is obtained from the (partially) computable functions $f,g_1,dots,g_k$ by composition, then $h$ is (partially) computable.
 
 === Section 2. Recursion
+#align(center)[*Notes*]
+
 *Definition* Let $k$ be a fixed number and
 $
 h(0) &= k\
@@ -374,6 +380,8 @@ h(x_1,dots,x_n, t+1) &= g(t,h(x_1,dots,x_n, t) ,x_1,dots,x_n)
 $
 and let $f$ and $g$ be computable. Then $h$ is also computable.
 === Section 3. PRC Classes
+#align(center)[*Notes*]
+
 Consider the following functions
 $
 s(x) &= x + 1\
@@ -406,7 +414,7 @@ To note, primitive recursion functions are only a subset of all computable funct
   then $h_1,h_2,h_3$ also belong to #C.\
   *Proof.*\
   Since $h_1,h_2,h_3$ are all obtained from $g_1, g_2, g_3, g_4$ and $g_1, g_2, g_3, g_4$ belong to #C and #C is a PRC that means $h_1,h_2,h_3$ belong to #C by the definition.
-+ Show that the class of all total functions is a PRC class.
++ Show that the class of all total functions is a PRC class.\
   *Proof.*\
   *Property 1* Let $#C _t$ be the class of total functions. And since
   $
@@ -417,6 +425,61 @@ To note, primitive recursion functions are only a subset of all computable funct
   the initial functions, are defined everywhere they are in $#C _t$.\
   *Property 2* let $f$ and $g$ be total functions and let $h$ be some function obtained from either composition or recursion of $f$ and $g$. Then when ever $f$ and $g$ are defined so is $h$ and since $f$ and $g$ are total so is $h$, then $h$ belongs to $#C _t$. Thus, $#C _t$ is a PRC class.
 #pagebreak()
+=== Section 4. Some Primitive Recursive Functions
+#align(center)[*Notes*]
+
+Remember, all primitive recursive functions are computable. Now, consider the following example.
+$
+f(x,y) = x + y
+$
+Then we can define $f$ recursively as follows.
+$
+f(x, 0) &= x,\
+f(x, y + 1) &= f(x,y) + 1,
+$
+which can be rewritten as 
+$
+f(x,0) &= u_1^1(x),\
+f(x,y+1) &= g(y,f(x,y),x),
+$
+where $g(x_1,x_2,x_3) = s(u_2^3(x_1,x_2,x_3))$ and remember that $u$ and $s$ are initial functions. From this point the book gives a few other examples but I get the picture.
+
+#align(center)[*Exercises*]
++ Give a detailed arguments that $x^y$, p(x), and $ x minus.dot y$ are primitive recursive. I am only going to do one of these.\
+  *$f(x,y) = x ^y$*\
+  Recursively the function looks like the following,
+  $
+  x^0 &= 1,\
+  x^(y+1) &= x^y dot x.
+  $
+  The base case can be expressed as,
+  $
+  f(x,0) = s(n(x)).
+  $
+  Then for the recursive case expressed it as
+  $
+  f(x,y + 1) = g(x, f(x,y), y)
+  $
+  where $g(x_1,x_2,x_3) = h(u_2^3(x_1,x_2,x_3),u_1^3(x_1,x_2,x_3))$ and that $h(x,y) = x dot y$ and was show to be primitive recursive in the book on page $45$.
++ Show that for each $k$, the function $f(x) = k$ is primitive recursive.\
+  The function $f$ can be defined recursively as the following,
+  $
+  f(0) &= k,\
+  f(x+1) &= f(x)
+  $
+  using the initial functions this can be expressed as
+  $
+  f(0) &= underbrace(s(s(s(dots s(n(x)) dots))), k "times")\
+  f(x+1) &= g(f(n(x)))
+  $
+  where $g(x_1) = u_1^1(x_1)$.
+#pagebreak()
+=== Section 5. Primitive Recursive Predicates
+
+  
+
+
+
   
 
 
